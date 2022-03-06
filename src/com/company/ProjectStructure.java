@@ -4,10 +4,10 @@ public class ProjectStructure {
     /*
      * OOP CONCEPTS
      *
-     *Abstraction:
-     *Encapsulation
+     *Abstraction: Implemented
+     *Encapsulation: Implemented
      *Polymorphism
-     *Inheritance
+     *Inheritance: Implemented
      */
     /*Customers variable*/
     /*
@@ -55,21 +55,21 @@ public class ProjectStructure {
      *
      *
      * If(Selected == 2)
-     *       Ask user for input: "Enter id: ";
-     *       Check the DB for matching id
-     *       if (DB does not contain id)
-     *           Output: "Entered id is not recognized"
+     *       Ask user for input: "Enter AccNumber: ";
+     *       Check the DB for matching AccNumber
+     *       if (DB does not contain AccNumber)
+     *           Output: "Entered AccNumber is not recognized"
      *               "Enter 1 to open an account with us, enter 2 to exit program."
      *               if(input is 1)
      *                   call the create account method.
      *               else {
      *                   exit program.
      *               }
-     *       if (DB contains entered id)
-     *           get the account name matching the id
+     *       if (DB contains entered AccNumber)
+     *           get the account name matching the AccNumber
      *           Output: "Dear (account name)"
      *           Ask user: "Enter password: "
-     *           if (password doesn't match password of the id)
+     *           if (password doesn't match password of the AccNumber)
      *               Output: "Wrong password, try again";
      *               //if the password is wrong after the second try, end program.
      *
@@ -92,7 +92,13 @@ public class ProjectStructure {
      *
      *
      *
-     *
+     * // Current bugs ***************
+     * * Make phone number more efficient using regex
+     * * Same with email method using regex
+     * * Work on the DOB method (Doesn't make much sense)
+     * * Deal with mysql username and password using environment variable
+     * * Gmail request breaking - Fix it
+     * * Make sure account number is unique
      *
      *
      *

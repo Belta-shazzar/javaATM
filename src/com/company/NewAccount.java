@@ -8,14 +8,11 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static com.company.Test.TEXT_RED;
-import static com.company.Test.TEXT_RESET;
+import static com.company.AbstClass.TEXT_RED;
+import static com.company.AbstClass.TEXT_BLUE;
+import static com.company.AbstClass.TEXT_RESET;
 
 public class NewAccount {
-    public static final String TEXT_RESET = "\u001B[0m";
-    public static final String TEXT_RED = "\u001B[31m";
-    public static final String TEXT_BLUE = "\u001B[34m";
-
     Scanner input;
     ArrayList<Customers> customersList;
     Customers customer;
@@ -35,11 +32,11 @@ public class NewAccount {
         do {
             try {
                 System.out.print("Enter birth year: ");
-                short year = input.nextShort();
+                short year = this.input.nextShort();
                 System.out.print("Enter birth month: ");
-                byte month = input.nextByte();
+                byte month = this.input.nextByte();
                 System.out.print("Enter birth day: ");
-                byte day = input.nextByte();
+                byte day = this.input.nextByte();
 
 //                get present year
                 short presentYear = (short) Calendar.getInstance().get(Calendar.YEAR);
@@ -47,13 +44,11 @@ public class NewAccount {
                     errorMsg();
                 } else {
 //                    check for months with 31 days
-                    if ((month == 01) || (month == 03) || (month == 5) || (month == 7) || (month == 8) || (month == 10) || (month == 12)) {
-                        if ((day < 1) || (day > 31)) {
+                    if (((month == 01) || (month == 03) || (month == 5) || (month == 7) || (month == 8) || (month == 10) || (month == 12)) && ((day < 1) || (day > 31)) ){
                             errorMsg();
-                        }
-                    } else if ((month == 02) && ((day < 1) || (day > 28))) { //check for month with 28 days
-                        errorMsg();
                     } else if (((month == 04) || (month == 06) || (month == 9) || (month == 11)) && ((day < 1) || (day > 30))) { //check for month with 30 days
+                        errorMsg();
+                    } else if ((month == 02) && ((day < 1) || (day > 28))) { //check for month with 28 days
                         errorMsg();
                     } else {
                         if (year < 1900) {
@@ -61,7 +56,9 @@ public class NewAccount {
                             date = null;
                         } else if (year >= (presentYear - 18)) { //Calculates to check if the user is eligible for an
                             // account
-                            System.out.println("Sorry, to have an account with us, you must be above the age of 17.");
+                            System.out.println(TEXT_RED + "Sorry, to have an account with us, you must be above the " +
+                                    "age of " +
+                                    "17." + TEXT_RESET);
                             date = null;
                         } else {
                             String dob = day + "/" + month + "/" + year;
@@ -80,11 +77,11 @@ public class NewAccount {
     }
 
     public String forEmail() {
-        Scanner input = new Scanner(System.in);
+        new Scanner(System.in);
         String email;
         do {
             System.out.print("Enter email: ");
-            String enteredEmail = input.nextLine();
+            String enteredEmail = this.input.nextLine();
             email = enteredEmail.toLowerCase();
             if (!((email.contains("@") && email.endsWith(".com")))) {
 //                System.out.println("Email is invalid!");
@@ -112,7 +109,7 @@ public class NewAccount {
             try {
                 System.out.print(TEXT_RED + "* password must be digits of exactly length of 4." + TEXT_RESET +
                         "\nEnter password: ");
-                short enteredPassword = input.nextShort();
+                short enteredPassword = this.input.nextShort();
 //                String passwordCheck = Integer.toString(password);
                 if (Integer.toString(enteredPassword).length() != 4) {
                     errorMsg();
@@ -120,7 +117,7 @@ public class NewAccount {
                     password = 0;
                 } else {
                     System.out.print("Re-enter password: ");
-                    short confirmPassword = input.nextShort();
+                    short confirmPassword = this.input.nextShort();
                     if (enteredPassword == confirmPassword) {
                         password = enteredPassword;
                     } else {
@@ -162,12 +159,10 @@ public class NewAccount {
 
         short password = setPass();
 
-
-
-        customer = new Customers(accName, pNumber, dob, email, password, (int) accNumb);
+        customer = new Customers(accName, pNumber, dob, email, password, accNumb);
         createConnection(customer.getName(), customer.getPhoneNumber(), customer.getDob(),
                 customer.getEmail(), customer.getAccountNumber(), customer.getAccountBal(), customer.getPassword());
-        customersList.add(customer);
+        this.customersList.add(customer);
         System.out.println(customersList);
         System.out.println(TEXT_BLUE + "Account open, successful!" + TEXT_RESET);
     }
@@ -196,12 +191,3 @@ public class NewAccount {
 
     }
 }
-
-
-/*
-* Check errors
-* * Phone number
-* * DOB
-* * Hide MySQL username and password
-* * Implement regex in phone number and email methods.
-* */

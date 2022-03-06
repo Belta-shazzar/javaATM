@@ -67,7 +67,7 @@ public class Customers {
         this.password = password;
     }
 
-    public Customers(String name, String phoneNumber, String dob, String email, short password, int accountNumber) {
+    public Customers(String name, String phoneNumber, String dob, String email, short password, Long accountNumber) {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.dob = dob;
@@ -79,10 +79,10 @@ public class Customers {
 
     @Override
     public String toString() {
-        return ", name = '" + name + '\n' +
-                ", phoneNumber = '" + phoneNumber + '\n' +
+        return ", name = " + name + '\n' +
+                ", phoneNumber = " + phoneNumber + '\n' +
                 ", dob = " + dob + '\n' +
-                ", email = '" + email + '\n' +
+                ", email = " + email + '\n' +
                 ", accountNumber = " + accountNumber + '\n' +
                 ", accountBal = " + accountBal + '\n' +
                 ", password = " + password + "\n";
