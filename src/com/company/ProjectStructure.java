@@ -67,6 +67,7 @@ public class ProjectStructure {
      *               }
      *       if (DB contains entered AccNumber)
      *           get the account name matching the AccNumber
+     *           Fetch the customer's detail and save it in an array
      *           Output: "Dear (account name)"
      *           Ask user: "Enter password: "
      *           if (password doesn't match password of the AccNumber)
@@ -82,7 +83,26 @@ public class ProjectStructure {
      *                           5. Recharge
      *
      *               Switch (input) {
-     *                   case 1:
+     *                   case 1 (Withdraw):
+     *                      Ask user: "Enter withdrawal amount: (should be in #500 denomination)"
+     *                      Check account balance if it's sufficient for withdrawal
+     *                      if (account balance >= 500) {
+     *                          account balance - withdrawal amount entered
+     *                          Output: Take your cash
+     *                          Update customer's account balance.
+     *                      } else {
+     *                          Output: "Insufficient fund"
+     *                      }
+     *
+     *                   case 2 (Check balance):
+     *                      Output: Account balance.
+     *
+     *                   case 3 (Transfer fund):
+     *                      Ask user: "Enter recipient account number"
+     *                      If(Recipient account number exist) {
+     *
+     *                      *** To be continued...
+     *
      *
      *
      *

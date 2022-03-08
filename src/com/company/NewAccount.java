@@ -68,7 +68,7 @@ public class NewAccount {
                     }
                 }
             } catch (InputMismatchException ex) {
-//                System.out.println("Invalid entry!");
+                System.out.println("Invalid entry!");
                 errorMsg();
             }
             input.nextLine();
@@ -81,10 +81,9 @@ public class NewAccount {
         String email;
         do {
             System.out.print("Enter email: ");
-            String enteredEmail = this.input.nextLine();
+            String enteredEmail = this.input.next();
             email = enteredEmail.toLowerCase();
-            if (!((email.contains("@") && email.endsWith(".com")))) {
-//                System.out.println("Email is invalid!");
+            if (!email.contains("@") && !email.endsWith(".com") || email.contains(" ")) {
                 System.out.println(TEXT_RED + "Email is invalid!" + TEXT_RESET);
                 email = null;
             }
@@ -95,43 +94,45 @@ public class NewAccount {
     public long generateAccountNumber() {
         // It will generate 6 digit random Number.
         // from 0 to 999999
-        Random rnd = new Random();
-        long number = rnd.nextInt((int) 9999999999l);
-
+        long number;
+        do {
+            Random rnd = new Random();
+            number = rnd.nextInt((int) 9999999999l);
+        } while (Long.toString(number).length() != 9);
         // this will convert any number sequence into 6 character.
 //        return String.format("%09d", number);
         return number;
     }
 
     public short setPass() {
-        short password = 0;
+        short pin = 0;
         do {
             try {
-                System.out.print(TEXT_RED + "* password must be digits of exactly length of 4." + TEXT_RESET +
-                        "\nEnter password: ");
-                short enteredPassword = this.input.nextShort();
+                System.out.print(TEXT_RED + "* pin must be digits of exactly length of 4." + TEXT_RESET +
+                        "\nEnter pin: ");
+                short enteredPin = this.input.nextShort();
 //                String passwordCheck = Integer.toString(password);
-                if (Integer.toString(enteredPassword).length() != 4) {
+                if (Integer.toString(enteredPin).length() != 4) {
                     errorMsg();
-                    System.out.println(TEXT_RED + "Password must be in 4 digits." + TEXT_RESET);
-                    password = 0;
+                    System.out.println(TEXT_RED + "Pin must be in 4 digits." + TEXT_RESET);
+                    pin = 0;
                 } else {
-                    System.out.print("Re-enter password: ");
-                    short confirmPassword = this.input.nextShort();
-                    if (enteredPassword == confirmPassword) {
-                        password = enteredPassword;
+                    System.out.print("Re-enter pin: ");
+                    short confirmPin = this.input.nextShort();
+                    if (enteredPin == confirmPin) {
+                        pin = enteredPin;
                     } else {
-                        System.out.println(TEXT_RED + "Password doesn't match" + TEXT_RESET);
+                        System.out.println(TEXT_RED + "Pin doesn't match" + TEXT_RESET);
 
-                        password = 0;
+                        pin = 0;
                     }
                 }
             } catch (InputMismatchException ex) {
                 errorMsg();
             }
             input.nextLine();
-        } while (password == 0);
-        return password;
+        } while (pin == 0);
+        return pin;
     }
 
     public void openAccount() {
@@ -140,6 +141,8 @@ public class NewAccount {
 
         System.out.print("Enter Phone number: "); //Add country Nigeria code
         String pNumber = this.input.next();
+
+        String email = forEmail();
 
         SimpleDateFormat DateFor = new SimpleDateFormat("dd-MM-yyyy");
         String stringDate= null;
@@ -150,7 +153,7 @@ public class NewAccount {
         }
         String dob = stringDate;
 
-        String email = forEmail();
+
 
         long accNumb = generateAccountNumber();
 

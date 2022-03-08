@@ -90,7 +90,8 @@ public class CustomerValidation extends AbstClass{
     public void transactionOptions() {
         Scanner input = new Scanner(System.in);
         System.out.println("Good day. What transaction would you like to perform: ");
-        String transactions ="1. Withdraw \n2. Check balance \n3. Transfer fund \n4. Deposit \n5. Recharge " +
+        String transactions ="1. Withdraw \n2. Check balance \n3. Transfer fund \n4. Deposit \n5. Recharge \n6. " +
+                "End transaction" +
                 "\nTransaction no: ";
 
         byte perform = 0;
@@ -119,6 +120,7 @@ public class CustomerValidation extends AbstClass{
                         break;
                     default: {
                         System.out.println(TEXT_RED + "Number not in option" + TEXT_RESET);
+                        break;
                     }
                 }
             } catch (InputMismatchException ex) {
@@ -128,7 +130,6 @@ public class CustomerValidation extends AbstClass{
             input.nextLine();
         } while (perform != 6);
     }
-
 }
 //290375474
 
