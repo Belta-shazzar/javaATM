@@ -5,7 +5,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public class Test {
+import static com.company.AbstClass.TEXT_BLUE;
+import static com.company.AbstClass.TEXT_RESET;
+
+public class Test<T> {
     Scanner input = new Scanner(System.in);
     public static final String TEXT_RESET = "\u001B[0m";
     public static final String TEXT_BLACK = "\u001B[30m";
@@ -82,8 +85,16 @@ public class Test {
         return email;
     }
 
+//  trying out generic
+    public String alertMsg(T... text) {
+        String message = TEXT_BLUE + text + ": Alert type: " + text + text + text + "\n " + TEXT_RESET;
+        return message;
+    }
+
     public static void main(String[] args) throws ParseException {
-//        System.getenv("Hello");
+        Test op = new Test();
+
+        System.out.println(op.alertMsg(1, 2, "Sam", "Ade"));
 
 // Implementation
 //        System.out.println(TEXT_RED + "This text is red!" + TEXT_RESET);

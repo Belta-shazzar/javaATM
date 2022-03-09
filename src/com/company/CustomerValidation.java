@@ -16,6 +16,7 @@ public class CustomerValidation extends AbstClass{
         System.out.println(TEXT_RED + "Invalid input! \n" + TEXT_RESET);
     }
 
+    @Override
     public String createConnection(long enteredAccNumb) {
         String accName = null;
         try {
@@ -37,7 +38,7 @@ public class CustomerValidation extends AbstClass{
 
                 activeCustomer = new CustomerTransaction(accName, phoneNum, dob, email, password, accNumb);
                 activeCustomer.setAccountBal(accBal);
-                activeCustomer.activeCustomerArray.add(activeCustomer);
+//                activeCustomer.activeCustomerArray.add(activeCustomer);
 //                System.out.println(activeCustomer.activeCustomerArray);
 
             }
@@ -90,8 +91,7 @@ public class CustomerValidation extends AbstClass{
     public void transactionOptions() {
         Scanner input = new Scanner(System.in);
         System.out.println("Good day. What transaction would you like to perform: ");
-        String transactions ="1. Withdraw \n2. Check balance \n3. Transfer fund \n4. Deposit \n5. Recharge \n6. " +
-                "End transaction" +
+        String transactions ="1. Withdraw \n2. Check balance \n3. Transfer fund \n4. Deposit \n5. End transaction" +
                 "\nTransaction no: ";
 
         byte perform = 0;
@@ -101,21 +101,22 @@ public class CustomerValidation extends AbstClass{
                 perform = input.nextByte();
                 switch (perform) {
                     case 1:
-                        System.out.println("Withdraw successful");
+//                        System.out.println("Withdraw successful");
+                        activeCustomer.withdrawal();
                         break;
                     case 2:
-                        System.out.println("Balance check successful");
+//                        System.out.println("Balance check successful");
+                        activeCustomer.checkBal();
                         break;
                     case 3:
-                        System.out.println("Transfer successful");
+//                        System.out.println("Transfer successful");
+                        activeCustomer.transferFunds();
                         break;
                     case 4:
-                        System.out.println("Deposit successful");
+//                        System.out.println("Deposit successful");
+                        activeCustomer.deposit();
                         break;
                     case 5:
-                        System.out.println("Recharge successful");
-                        break;
-                    case 6:
                         System.out.println("Thank you for banking with us.");
                         break;
                     default: {
@@ -128,7 +129,7 @@ public class CustomerValidation extends AbstClass{
                 ex.printStackTrace();
             }
             input.nextLine();
-        } while (perform != 6);
+        } while (!(perform >= 1 || perform <= 5));
     }
 }
 //290375474

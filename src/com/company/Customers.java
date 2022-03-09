@@ -1,8 +1,12 @@
 package com.company;
 
+import java.sql.*;
 import java.util.Date;
 
-public class Customers {
+public class Customers extends AbstClass {
+//    Right here is an instance of the customer class representing the fund receiving customer
+    CustomerTransaction recipient;
+
     private String name;
     private String phoneNumber;
     private String dob;
@@ -86,5 +90,42 @@ public class Customers {
                 ", accountNumber = " + accountNumber + '\n' +
                 ", accountBal = " + accountBal + '\n' +
                 ", password = " + password + "\n";
+    }
+
+    @Override
+    public void errorMsg() {
+
+    }
+
+//    createConnection here fetches fund receiving customer's details.
+    @Override
+    public String createConnection(long enteredAccNumb) {
+        String accName = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/java_bank", "shazzar",
+                    "Las-jefa5");
+            Statement statement = con.createStatement();
+            ResultSet resultForAccNumb =
+                    statement.executeQuery("SELECT * FROM customers WHERE account_number = " + enteredAccNumb + ";");
+            while (resultForAccNumb.next()) {
+
+                accName = resultForAccNumb.getString("account_name");
+                String phoneNum = resultForAccNumb.getString("phone_number");
+                String dob = resultForAccNumb.getString("dob");
+                String email = resultForAccNumb.getString("email");
+                long accNumb = resultForAccNumb.getLong("account_number");
+                int accBal = resultForAccNumb.getInt("account_balance");
+                short password = resultForAccNumb.getShort("password");
+
+                recipient = new CustomerTransaction(accName, phoneNum, dob, email, password, accNumb);
+                recipient.setAccountBal(accBal);
+//                System.out.println(activeCustomer.activeCustomerArray);
+
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            ex.printStackTrace();
+        }
+        return accName;
     }
 }

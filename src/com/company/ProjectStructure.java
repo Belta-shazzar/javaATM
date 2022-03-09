@@ -4,10 +4,10 @@ public class ProjectStructure {
     /*
      * OOP CONCEPTS
      *
-     *Abstraction: Implemented
+     *Abstraction: Implemented - Customers & CustomerValidation extends abstClass
      *Encapsulation: Implemented
      *Polymorphism
-     *Inheritance: Implemented
+     *Inheritance: Implemented - CustomerTransaction extends Customers
      */
     /*Customers variable*/
     /*
