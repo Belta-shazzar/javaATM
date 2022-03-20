@@ -7,6 +7,8 @@ import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.company.AbstClass.TEXT_RED;
 import static com.company.AbstClass.TEXT_BLUE;
@@ -24,6 +26,31 @@ public class NewAccount {
 
     public void errorMsg() {
         System.out.println(TEXT_RED + "Invalid input!" + TEXT_RESET);
+    }
+
+    public String phoneNumber() {
+        String phoneNumber;
+        do {
+            System.out.print("Enter phone number: 234");
+            String enteredPhoneNumb = this.input.nextLine();
+
+            Pattern pat = Pattern.compile("(0)?[7-9](0|1)[0-9]{8}");
+            Matcher mat = pat.matcher(enteredPhoneNumb);
+
+            if (mat.find() && mat.group().equals(enteredPhoneNumb)) {
+                if (enteredPhoneNumb.startsWith("0")) {
+                    phoneNumber = "+234" + enteredPhoneNumb.substring(1);
+                } else {
+                    phoneNumber = "+234" + enteredPhoneNumb;
+                }
+            } else {
+                System.out.println(TEXT_RED + "Invalid phone number!" + TEXT_RESET);
+                phoneNumber = null;
+            }
+
+        } while (phoneNumber == null);
+
+        return phoneNumber;
     }
 
     public Date forDob() throws ParseException {
@@ -76,19 +103,23 @@ public class NewAccount {
         return date;
     }
 
-    public String forEmail() {
-        new Scanner(System.in);
-        String email;
+    public String forGmail() {
+        String gmail;
         do {
-            System.out.print("Enter email: ");
-            String enteredEmail = this.input.next();
-            email = enteredEmail.toLowerCase();
-            if (!email.contains("@") && !email.endsWith(".com") || email.contains(" ")) {
-                System.out.println(TEXT_RED + "Email is invalid!" + TEXT_RESET);
-                email = null;
+            System.out.print("Enter gmail: ");
+            gmail = this.input.nextLine();
+
+            Pattern pat = Pattern.compile("[a-z][a-z0-9]*@gmail.com");
+            Matcher mat = pat.matcher(gmail);
+
+            if (!(mat.find() && mat.group().equals(gmail))) {
+                System.out.println(TEXT_RED + "Invalid gmail!" + TEXT_RESET);
+                gmail = null;
             }
-        } while (email == null);
-        return email;
+
+        } while (gmail == null);
+
+        return gmail;
     }
 
     public long generateAccountNumber() {
@@ -139,10 +170,9 @@ public class NewAccount {
         System.out.print("Enter Name: ");
         String accName = this.input.nextLine();
 
-        System.out.print("Enter Phone number: "); //Add country Nigeria code
-        String pNumber = this.input.next();
+        String pNumber = phoneNumber();
 
-        String email = forEmail();
+        String email = forGmail();
 
         SimpleDateFormat DateFor = new SimpleDateFormat("dd-MM-yyyy");
         String stringDate= null;
@@ -152,8 +182,6 @@ public class NewAccount {
             e.printStackTrace();
         }
         String dob = stringDate;
-
-
 
         long accNumb = generateAccountNumber();
 
